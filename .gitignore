@@ -17,6 +17,7 @@ packages/remotion/out/
 
 # Planning docs (private)
 ROADMAP.md
+GOALS.md
 
 # Playwright screenshots
 scripts/screenshots/

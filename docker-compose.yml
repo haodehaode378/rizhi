@@ -1,0 +1,14 @@
+services:
+  blog:
+    build: .
+    container_name: rizhi-blog
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - book-data:/app/packages/shared/data
+
+volumes:
+  book-data:
