@@ -2,9 +2,31 @@ import { books, getBookBySlug } from "@daily-book/shared";
 import { Header } from "@/components/Header";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 export function generateStaticParams() {
   return books.map((b) => ({ slug: b.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const book = getBookBySlug(slug);
+  if (!book) return {};
+
+  return {
+    title: book.title,
+    description: book.oneLiner || book.summary,
+    openGraph: {
+      title: `${book.title} — 日知`,
+      description: book.oneLiner || book.summary,
+      images: book.cover ? [book.cover] : [],
+      type: "article",
+    },
+  };
 }
 
 function Stars({ rating }: { rating: number }) {
@@ -40,9 +62,31 @@ export default async function BookPage({
   const book = getBookBySlug(slug);
   if (!book) return notFound();
 
+  const base = process.env.SITE_URL || "https://rizhi.dev";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: book.title,
+    author: { "@type": "Person", name: book.author },
+    genre: book.genre,
+    abstract: book.summary,
+    review: { "@type": "Review", reviewBody: book.review },
+    image: book.cover || undefined,
+    url: `${base}/book/${book.slug}`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: book.rating,
+      bestRating: 5,
+    },
+  };
+
   return (
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <main className="max-w-4xl mx-auto px-6 py-12">
         <Link
           href="/"
