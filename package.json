@@ -1,0 +1,13 @@
+{
+  "name": "rizhi",
+  "private": true,
+  "scripts": {
+    "dev:blog": "pnpm --filter blog dev",
+    "dev:remotion": "pnpm --filter remotion preview",
+    "build:remotion": "pnpm --filter remotion build",
+    "build:blog": "pnpm --filter blog build"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}

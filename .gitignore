@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Build outputs
+dist/
+build/
+
+# Remotion renders
+packages/remotion/out/
+
+# Environment variables
+.env
+
+# Planning docs (private)
+ROADMAP.md
+
+# Playwright screenshots
+scripts/screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
