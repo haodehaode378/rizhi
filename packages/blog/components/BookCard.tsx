@@ -15,6 +15,30 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
+function DifficultyBadge({ difficulty }: { difficulty: string }) {
+  const map: Record<string, { label: string; color: string }> = {
+    easy: { label: "轻松", color: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
+    medium: { label: "进阶", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+    hard: { label: "挑战", color: "bg-red-500/20 text-red-400 border-red-500/30" },
+  };
+  const d = map[difficulty] || map.medium;
+  return (
+    <span className={`text-xs font-medium border px-2 py-0.5 rounded-full ${d.color}`}>
+      {d.label}
+    </span>
+  );
+}
+
+function CoverFallback({ title }: { title: string }) {
+  const colors = ["from-amber-600 to-red-600", "from-blue-600 to-purple-600", "from-emerald-600 to-teal-600"];
+  const idx = title.charCodeAt(0) % colors.length;
+  return (
+    <div className={`w-full h-full bg-gradient-to-br ${colors[idx]} flex items-center justify-center`}>
+      <span className="text-white text-4xl font-black opacity-80">{title[0]}</span>
+    </div>
+  );
+}
+
 export function BookCard({ book }: { book: Book }) {
   return (
     <Link
@@ -23,16 +47,23 @@ export function BookCard({ book }: { book: Book }) {
     >
       {/* Cover */}
       <div className="relative aspect-[3/4] overflow-hidden bg-gray-800">
-        <img
-          src={book.cover}
-          alt={book.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+        {book.cover ? (
+          <img
+            src={book.cover}
+            alt={book.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <CoverFallback title={book.title} />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60" />
-        {/* Genre Badge */}
-        <span className="absolute top-4 right-4 text-xs font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full backdrop-blur-sm">
-          {book.genre}
-        </span>
+        {/* Badges */}
+        <div className="absolute top-4 right-4 flex gap-2">
+          <span className="text-xs font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full backdrop-blur-sm">
+            {book.genre}
+          </span>
+          <DifficultyBadge difficulty={book.difficulty} />
+        </div>
       </div>
 
       {/* Info */}
@@ -42,10 +73,14 @@ export function BookCard({ book }: { book: Book }) {
         </h3>
         <p className="text-sm text-gray-400">{book.author}</p>
         <Stars rating={book.rating} />
+        <p className="text-sm text-amber-400/80 italic line-clamp-1">{book.oneLiner}</p>
         <p className="text-sm text-gray-300 line-clamp-2 leading-relaxed flex-1">
           {book.summary}
         </p>
-        <div className="text-xs text-gray-500 mt-1">{book.date}</div>
+        <div className="flex items-center justify-between text-xs text-gray-500 mt-1">
+          <span>{book.date}</span>
+          <span>{book.readingTime}</span>
+        </div>
       </div>
     </Link>
   );

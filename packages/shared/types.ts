@@ -5,6 +5,11 @@ export interface Book {
   cover: string;
   rating: number;
   genre: string;
+  tags: string[];
+  difficulty: "easy" | "medium" | "hard";
+  readingTime: string;
+  targetAudience: string;
+  oneLiner: string;
   summary: string;
   review: string;
   quote: string;

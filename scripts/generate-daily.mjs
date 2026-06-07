@@ -83,6 +83,11 @@ ${today}
   "cover": "豆瓣或公开可用的封面图片URL，如果找不到就写空字符串",
   "rating": 4.5,
   "genre": "分类（如：文学、历史、科技、哲学、心理学、商业、艺术、社会学、自我提升、效率等）",
+  "tags": ["标签1", "标签2", "标签3", "标签4"],
+  "difficulty": "easy或medium或hard",
+  "readingTime": "预计阅读时间，如：4-5小时",
+  "targetAudience": "这本书适合谁读，一句话说明",
+  "oneLiner": "一句话推荐，15字以内，有记忆点",
   "summary": "一句话概括这本书讲什么，20-40字",
   "review": "100-200字的书评，要有观点、有温度、能引发阅读欲望，不要写成干巴巴的简介",
   "quote": "书中最有力量的一句话（中文）",
@@ -93,6 +98,11 @@ ${today}
 - rating 是 1-5 的数字，支持 0.5 步长
 - slug 只能用小写英文和短横线
 - cover 尽量找真实可用的图片 URL，找不到就留空字符串
+- tags 是 3-5 个中文标签，描述书籍的核心主题
+- difficulty: easy=通俗易懂，medium=需要一定基础，hard=有阅读门槛
+- readingTime: 根据书籍篇幅和难度估算
+- targetAudience: 具体描述适合什么人读
+- oneLiner: 要有记忆点，像广告语
 - 书评要有个人视角，像一个真人在推荐，不要像百科词条
 - 只输出 JSON，不要有其他任何文字`;
 }
@@ -157,6 +167,11 @@ function parseBookResponse(raw) {
   book.cover = book.cover || "";
   book.rating = Math.min(5, Math.max(1, Number(book.rating) || 4));
   book.slug = book.slug.toLowerCase().replace(/[^a-z0-9-]/g, "-");
+  book.tags = Array.isArray(book.tags) ? book.tags : [];
+  book.difficulty = ["easy", "medium", "hard"].includes(book.difficulty) ? book.difficulty : "medium";
+  book.readingTime = book.readingTime || "未知";
+  book.targetAudience = book.targetAudience || "所有读者";
+  book.oneLiner = book.oneLiner || book.summary;
 
   return book;
 }

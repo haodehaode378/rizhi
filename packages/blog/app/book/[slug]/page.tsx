@@ -54,26 +54,61 @@ export default async function BookPage({
         <div className="flex flex-col md:flex-row gap-12">
           {/* Cover */}
           <div className="flex-shrink-0">
-            <div className="w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-gray-800/30">
-              <img
-                src={book.cover}
-                alt={book.title}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-72 md:w-80 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-gray-800/30 bg-gray-800">
+              {book.cover ? (
+                <img
+                  src={book.cover}
+                  alt={book.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-amber-600 to-red-600 flex items-center justify-center">
+                  <span className="text-white text-6xl font-black opacity-80">{book.title[0]}</span>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Info */}
           <div className="flex flex-col gap-6 flex-1">
-            <span className="text-xs font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full w-fit">
-              {book.genre}
-            </span>
+            <div className="flex gap-2 w-fit">
+              <span className="text-xs font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full">
+                {book.genre}
+              </span>
+              {book.difficulty && (
+                <span className={`text-xs font-medium border px-3 py-1 rounded-full ${
+                  book.difficulty === "easy" ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" :
+                  book.difficulty === "hard" ? "bg-red-500/20 text-red-400 border-red-500/30" :
+                  "bg-blue-500/20 text-blue-400 border-blue-500/30"
+                }`}>
+                  {book.difficulty === "easy" ? "轻松" : book.difficulty === "hard" ? "挑战" : "进阶"}
+                </span>
+              )}
+            </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
               {book.title}
             </h1>
             <p className="text-xl text-gray-300">{book.author}</p>
+            {book.oneLiner && (
+              <p className="text-lg text-amber-400/80 italic">「{book.oneLiner}」</p>
+            )}
             <Stars rating={book.rating} />
-            <div className="text-sm text-gray-500">{book.date}</div>
+            <div className="flex gap-6 text-sm text-gray-500">
+              <span>{book.date}</span>
+              {book.readingTime && <span>阅读时间：{book.readingTime}</span>}
+            </div>
+            {book.targetAudience && (
+              <p className="text-sm text-gray-400">适合：{book.targetAudience}</p>
+            )}
+            {book.tags && book.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {book.tags.map((tag) => (
+                  <span key={tag} className="text-xs bg-gray-800 text-gray-400 px-2.5 py-1 rounded-full border border-gray-700/50">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -101,7 +136,7 @@ export default async function BookPage({
       </main>
 
       <footer className="border-t border-gray-800/50 mt-20 py-8 text-center text-gray-500 text-sm">
-        每日一本好书 — 发现阅读的乐趣
+        日知 — 日知一书，日进一步
       </footer>
     </>
   );
