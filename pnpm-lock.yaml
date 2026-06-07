@@ -49,6 +49,46 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
+  packages/cms:
+    dependencies:
+      '@daily-book/shared':
+        specifier: workspace:*
+        version: link:../shared
+      jose:
+        specifier: ^5.9.0
+        version: 5.10.0
+      next:
+        specifier: ^14.2.18
+        version: 14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.19.20
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.31
+      '@types/react-dom':
+        specifier: ^18.3.1
+        version: 18.3.7(@types/react@18.3.31)
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.5.0(postcss@8.5.15)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.5.15
+      tailwindcss:
+        specifier: ^3.4.15
+        version: 3.4.19
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   packages/remotion:
     dependencies:
       '@daily-book/shared':
@@ -854,6 +894,9 @@ packages:
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
+
+  jose@5.10.0:
+    resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2202,6 +2245,8 @@ snapshots:
       supports-color: 8.1.1
 
   jiti@1.21.7: {}
+
+  jose@5.10.0: {}
 
   js-tokens@4.0.0: {}
 
