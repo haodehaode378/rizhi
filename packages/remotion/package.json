@@ -5,6 +5,7 @@
   "scripts": {
     "preview": "remotion studio",
     "build": "remotion render src/index.ts BookCard out/book-card.mp4",
+    "render:quote": "remotion render src/index.ts QuoteCard out/quote-card.mp4",
     "render-all": "node scripts/render-all.mjs"
   },
   "dependencies": {

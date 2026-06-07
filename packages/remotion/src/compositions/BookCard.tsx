@@ -75,7 +75,7 @@ export const BookCard: React.FC<BookCardProps> = ({ slug }) => {
               fontFamily: "sans-serif",
             }}
           >
-            每日一本好书
+            日知
           </div>
           <div
             style={{
