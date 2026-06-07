@@ -1,6 +1,6 @@
 import { books } from "@daily-book/shared";
 import { Header } from "@/components/Header";
-import { BookCard } from "@/components/BookCard";
+import { FilterBar } from "@/components/FilterBar";
 
 export default function HomePage() {
   const sorted = [...books].sort((a, b) => b.date.localeCompare(a.date));
@@ -20,12 +20,8 @@ export default function HomePage() {
           <div className="w-20 h-1 bg-gradient-to-r from-amber-500 to-red-500 mx-auto mt-6 rounded-full" />
         </section>
 
-        {/* Book Grid */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sorted.map((book) => (
-            <BookCard key={book.slug} book={book} />
-          ))}
-        </section>
+        {/* Search & Filter */}
+        <FilterBar books={sorted} />
       </main>
 
       {/* Footer */}

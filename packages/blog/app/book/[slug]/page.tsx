@@ -1,5 +1,6 @@
 import { books, getBookBySlug } from "@daily-book/shared";
 import { Header } from "@/components/Header";
+import { ShareButton } from "@/components/ShareButton";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -88,12 +89,15 @@ export default async function BookPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <main className="max-w-4xl mx-auto px-6 py-12">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-amber-400 transition-colors mb-10 text-sm"
-        >
-          ← 返回书架
-        </Link>
+        <div className="flex items-center justify-between mb-10">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-amber-400 transition-colors text-sm"
+          >
+            ← 返回书架
+          </Link>
+          <ShareButton title={book.title} url={`/book/${book.slug}`} />
+        </div>
 
         <div className="flex flex-col md:flex-row gap-12">
           {/* Cover */}
